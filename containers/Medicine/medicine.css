@@ -1,38 +1,20 @@
-/* .container {
-  background-color:#00FFFF;
-  padding-top: 70px;
-  display: flex;
-}
-/*
-.container-2 {
-  display:inline;
-} */
-
-/* .heading {
-  font-size: 5rem;
-  text-align: center;
-  padding-left: 100px;
-}
-
-.image {
-  width: 50%;
-}
-
-input {
-  margin-left: 50%;
-} */
-
 * {
   box-sizing: border-box;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
 .container {
   background-image: url("../../assets/images/old2.jpg");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  background-color:#00FFFF;
-  padding-top: 70px;
-  padding-bottom: 200px;
+  /* background-color:#00FFFF; */
+  padding-top: 35px;
+  padding-bottom: 15%;
   display: flex;
+  flex-direction: row;
 }
 
 .Navbar {
@@ -40,15 +22,12 @@ input {
   padding: 10px 10px;
 }
 
-.image {
-  width: 50%;
-}
 
 .heading {
   font-size: 5rem;
   color: white;
   text-align: center;
-  padding-left: 750px;
+  padding-left: 650px;
   margin-top: 7%;
 }
 
@@ -58,22 +37,17 @@ input {
   width: 22%;
 }
 
-button {
+.Userbtn {
   padding: 2px 4px;
   margin-left: 10px;
 }
 
-h3 {
+.InputContainer h3 {
   display: inline;
   overflow: hidden;
   white-space: nowrap;
 }
 
-/* .Info {
-  margin-left: 20%;
-  width: 30%;
-  padding-top: 10px;
-} */
 
 .InfoContainer {
   background-color: #F8F8FF;
@@ -91,6 +65,11 @@ h3 {
   box-shadow: 0 2px 3px #ccc;
 }
 
+.login {
+  margin-left: 48%;
+  padding: 10px;
+}
+
 .NavigationItems {
     flex-flow: row;
 }
@@ -105,24 +84,62 @@ h3 {
 
 .NavigationItem a {
     position: relative;
-    color: blue;
+    color: white;
     height: 100%;
     padding: 25px 10px;
+    margin-top: 20px;
     border-bottom: 4px solid transparent;
-    margin-left: 100%;
+    left: 1300px;
 }
+
 
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-    background-color: #8F5C2C;
-    border-bottom: 4px solid #40A4C8;
-    color: white;
+    color: purple;
 }
 
-@media (max-width:400px) {
+.DirectionContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width:770px) {
   .container {
-    display: inline-block;
+    flex-direction: column;
+    /* display: inline-block; */
+  }
+
+  .heading {
+    padding-left: 35%;
+    font-size: 1.2rem;
+  }
+
+  .NavigationItem a {
+    padding: 10px 5px;
+    top: -15px;
+    left: 190%;
+  }
+
+  .Username {
+    margin-left: 45%;
+    padding-top: 3px;
+    width: 32%;
+  }
+
+  .Userbtn {
+    padding: 2px 2px;
+    margin-left: 7px;
+  }
+
+  .InputContainer {
+    width: 80%;
+    height: 70%;
+    /* margin-left: 10%; */
+  }
+
+  .InputContainer h3{
+    font-size: 0.9rem;
   }
 
   .Navbar {
@@ -130,4 +147,13 @@ h3 {
     padding: 10px 10px;
     margin-left: auto;
   }
+
+  .DirectionContainer {
+    flex-direction: column;
+  }
+
+  .login {
+    margin-left: 45%;
+  }
+
 }
