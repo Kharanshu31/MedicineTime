@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import axios from "axios";
 import "./login.css";
+import Swal from "sweetalert2";
 
 class Login extends Component{
 
@@ -11,21 +12,21 @@ class Login extends Component{
     password:""
   }
 
-  componentDidMount(){
-    axios.get("http://localhost:5000/login/")
-      .then(response=>{
-        if(response.data.length>0)
-        {
-            //console.log(response.data);
-            this.setState({
-                emails:response.data.map(key=>key.email),
-                passwords:response.data.map(el=>el.password)
-            })
-        }
-
-      })
-
-  }
+  // componentDidMount(){
+  //   axios.get("http://localhost:5000/login/")
+  //     .then(response=>{
+  //       if(response.data.length>0)
+  //       {
+  //           //console.log(response.data);
+  //           this.setState({
+  //               emails:response.data.map(key=>key.email),
+  //               passwords:response.data.map(el=>el.password)
+  //           })
+  //       }
+  //
+  //     })
+  //
+  // }
 
   onSetemail=(event)=>{
     let email=event.target.value;
@@ -45,11 +46,33 @@ class Login extends Component{
       password:this.state.password
     }
 
-    axios.post("http://localhost:5000/login/add",userdetails)
-      .then(response=>console.log(response.data))
-      .catch(err=>console.log(err.response))
+    console.log(userdetails);
+
+    axios.post("http://localhost:5000/login/find",userdetails)
+    .then(response=>{
+      console.log(response);
+      if(response.data==="Email does not exist")
+      {
+        Swal.fire("Error","Email does not exist,Please Register").then(()=>window.location.href="/register")
+      }
+      else if(response.data==="Password does not match")
+      {
+        Swal.fire("Error","Password does not match").then(()=>this.setState({password:""}))
+      }
+      else
+      {
+        window.localStorage.setItem("_id",response.data._id)
+        Swal.fire("Success","Logged In").then(()=>window.location.href="/")
+      }
+    }).catch(err=>{
+      console.log(err);
+      Swal.fire("User does not exist please register")
+      //.then(()=>window.location.href="/register")
+    })
 
   }
+
+
 
   render()
   {
