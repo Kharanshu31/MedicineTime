@@ -80,12 +80,25 @@ class Medicine extends Component {
     username:this.state.username
   }
 
+  const id=window.localStorage.getItem("_id")
 
-  axios.post("http://localhost:5000/user/add",userItems)
-    .then(res=>console.log(res.data))
-      .catch(error=>console.log(error.response));
+  if(id === null || id.length === 0)
+  {
+    Swal.fire("Please login before adding medicine");
+  }
+  else
+  {
+    // axios.post("http://localhost:5000/user/add",userItems)
+    //   .then(res=>console.log(res.data))
+    //     .catch(error=>console.log(error.response));
 
-    this.props.history.push("/course");
+    axios.post(`http://localhost:5000/user/add?id=${id}`,userItems)
+      .then(res=>console.log(res.data))
+        .catch(error=>console.log(error.response));
+
+
+      this.props.history.push("/course");
+  }
 
   // this.setState({names:newArray},()=>{
   //   const queryparam=[];
