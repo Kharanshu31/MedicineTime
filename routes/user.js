@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const Login = require("../model/login.model");
 let Medicine = require('../model/user.model');
 
 router.route("/").get((req,res)=>{
@@ -7,13 +8,55 @@ router.route("/").get((req,res)=>{
     .catch(err=>res.status(400).json("Error:" + err));
 })
 
-router.route("/add").post((req,res)=>{
-  const medicineName=req.body.name;
-  const newMedicine=new Medicine(req.body);
-  //console.log(req.body.name);
-  newMedicine.save()
-    .then(()=>res.json(medicineName))
+router.route("/find").get((req,res)=>{
+  Medicine.find({user:req.query.id})
+    .then(medicines=>res.json(medicines))
     .catch(err=>res.status(400).json("Error:" + err));
+})
+
+// router.route("/add").post((req,res)=>{
+//   const medicineName=req.body.name;
+//   const newMedicine=new Medicine(req.body);
+//   //console.log(req.body.name);
+//   newMedicine.save()
+//     .then(()=>res.json(medicineName))
+//     .catch(err=>res.status(400).json("Error:" + err));
+// })
+
+router.route("/add").post(async(req,res)=>{
+
+  try {
+    const u=Login.findOne({_id:req.query.id});
+
+    if(!u)
+    {
+      return res.json("User does not exist");
+    }
+
+    // const medicineName=req.body.name;
+    const newMedicine=new Medicine({
+      username:req.body.username,
+      name:req.body.name,
+      time:req.body.time,
+      user:req.query.id
+    });
+
+    console.log(newMedicine);
+    //console.log("11111");
+    // await newMedicine.save()
+    //   .then(()=>res.json(medicineName))
+    //   .catch(err=>res.status(400).json("Error:" + err));
+
+    const newm=await newMedicine.save();
+
+    res.json(newm);
+
+  } catch(err) {
+    console.log(err);
+    res.status(500).json("Server Error!!")
+  }
+
+
 })
 
 router.route("/remove/").delete(async(req,res)=>{
